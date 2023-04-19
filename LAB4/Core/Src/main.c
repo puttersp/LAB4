@@ -45,7 +45,6 @@ TIM_HandleTypeDef htim2;
 UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
-arm_pid_instance_f32 PID = {0};
 float position 			= 0;
 float setposition 		= 0;
 float Vfeedback 		= 0;
@@ -54,9 +53,11 @@ float error_prior 		= 0;
 float integral_prior 	= 0;
 
 float bias				= 0;
-float Kp 				= 300;
-float Ki			 	= 0.00015;
-float Kd				= 0.1;
+float Kp 				= 200;
+float Ki			 	= 0.00001;
+float Kd				= 5;
+
+float error1 			= 0;
 
 
 /* USER CODE END PV */
@@ -113,12 +114,6 @@ int main(void)
   HAL_TIM_Base_Start(&htim1);				//PWM
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1); //PWM
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2); //PWM
-
-  PID.Kp = 600; //2003.2
-  PID.Ki = 0.00015;
-  PID.Kd = 0.1;
-  arm_pid_init_f32(&PID, 0);
-  float error1 = 0;
 
   /* USER CODE END 2 */
 
